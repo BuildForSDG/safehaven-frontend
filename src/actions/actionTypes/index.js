@@ -1,0 +1,2 @@
+export const EXAMPLE_TYPE = 'EXAMPLE_TYPE';
+export const EXAMPLE_TYPE2 = 'EXAMPLE_TYPE2';
