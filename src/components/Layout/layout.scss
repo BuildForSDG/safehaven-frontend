@@ -97,7 +97,8 @@ footer {
 
     .Images {
       display: flex;
-      justify-content: center;
+			justify-content: center;
+
       img {
         margin-right: 1rem;
       }
@@ -106,7 +107,8 @@ footer {
         justify-content: flex-start;
       }
     }
-  }
+	}
+	
   @media (max-width: 767.98px) {
     flex-direction: column;
   }
