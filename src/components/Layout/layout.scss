@@ -1,0 +1,131 @@
+.Black {
+  background: #000000;
+  color: #ffffff;
+}
+
+footer {
+  padding: 8rem 3rem;
+  font-size: 1.2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  h3 {
+    display: inline-block;
+    padding-bottom: 5px;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 10px;
+      left: 0;
+      bottom: 0;
+      border-bottom: 3px solid #ffffff;
+    }
+    @media (max-width: 767.98px) {
+      margin-top: 3rem;
+    }
+  }
+  ul {
+    li {
+      list-style: none;
+      padding-top: 1.5rem;
+      font-weight: 100;
+    }
+  }
+  .Socials {
+    display: flex;
+    flex-direction: column;
+    .Images {
+      display: flex;
+      justify-content: center;
+      img {
+        margin-right: 1rem;
+      }
+
+      @media (max-width: 767.98px) {
+        justify-content: flex-start;
+      }
+    }
+  }
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+  }
+}
+
+nav {
+  font-size: 1rem;
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  img {
+    @media (max-width: 575.98px) {
+      width: 60%;
+    }
+  }
+  @media (max-width: 767.98px) {
+    padding: 1rem;
+  }
+  ul {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    @media (max-width: 767.98px) {
+      display: none;
+    }
+    li {
+      list-style: none;
+      margin-right: 2rem;
+      padding: 2rem;
+      font-size: large;
+      @media (max-width: 991.98px) {
+        padding: 0.5rem;
+        margin-right: 1rem;
+        font-size: medium;
+      }
+    }
+  }
+  button {
+    background: #000000;
+    color: #00bf00;
+    border-color: #00bf00;
+    font-size: large;
+    padding: 1rem;
+    @media (max-width: 767.98px) {
+      display: none;
+    }
+  }
+}
+
+.NavButton {
+  display: none;
+  background: #000000;
+  color: #00bf00;
+  border-color: transparent;
+  @media (max-width: 767.98px) {
+    display: block;
+  }
+}
+
+.Close {
+  float: right;
+  margin: 1rem 2rem;
+}
+
+.Sidenav {
+  width: 50vw;
+  &Content {
+    height: 100%;
+    width: 100%;
+    ul {
+      margin-right: 30rem;
+      margin-top: 10rem;
+      li {
+        margin: 5rem;
+        list-style: none;
+      }
+    }
+  }
+}
