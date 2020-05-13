@@ -27,7 +27,7 @@ const Navbar = () => {
       <img src={logo} alt="logo" />
       <ul>
         <li>About Us</li>
-        <li>Specialists</li>
+        <li>Consult</li>
         <li>Chat Now</li>
         <li>Providers</li>
       </ul>
@@ -43,7 +43,7 @@ const Navbar = () => {
           <MenuIcon style={{ fontSize: 30 }} />
         </button>
         <SwipeableDrawer
-          containerClassName={styles.Sidenav}
+          className={styles.Sidenav}
           anchor="right"
           open={state.right}
           onClose={toggleDrawer('right', false)}

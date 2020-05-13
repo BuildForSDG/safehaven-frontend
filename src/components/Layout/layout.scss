@@ -4,15 +4,24 @@
 }
 
 nav {
-  font-size: 1rem;
   padding: 1rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   img {
+    width: 15%;
+
+    @media (max-width: 991.98px) {
+      width: 20%;
+    }
+
+    @media (max-width: 767.98px) {
+      width: 30%;
+    }
+
     @media (max-width: 575.98px) {
-      width: 60%;
+      width: 40%;
     }
   }
 
@@ -34,11 +43,10 @@ nav {
       list-style: none;
       margin-right: 2rem;
       padding: 2rem;
-      font-size: large;
 
       @media (max-width: 991.98px) {
         padding: 0.5rem;
-        margin-right: 1rem;
+        margin-right: 1.5rem;
         font-size: medium;
       }
     }
@@ -48,7 +56,7 @@ nav {
     background: #000;
     color: #00bf00;
     border-color: #00bf00;
-    font-size: large;
+    font-size: 1.5rem;
     padding: 1rem;
 
     @media (max-width: 767.98px) {
@@ -132,7 +140,9 @@ footer {
 }
 
 .Sidenav {
-  width: 50vw;
+  @media (min-width: 768px) {
+    display: none;
+  }
 
   &Content {
     height: 100%;
@@ -141,6 +151,10 @@ footer {
     ul {
       margin-right: 30rem;
       margin-top: 10rem;
+
+      @media (max-width: 575.98px) {
+        margin-right: 8rem;
+      }
 
       li {
         margin: 5rem;
