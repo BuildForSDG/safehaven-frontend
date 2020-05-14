@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import exampleAction from '../../actions/exampleAction';
+import exampleAction from '../../redux/actions/exampleAction';
 
 import styles from './example.scss';
 
