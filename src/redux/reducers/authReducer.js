@@ -18,34 +18,34 @@ const authReducer = (state = initialState, action) => {
         error: null
       };
 
-      case types.SIGN_IN:
-        return {
-          ...state,
-          loading: false,
-          success: action.payload,
-          error: null
-        };
+    case types.SIGN_IN:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload,
+        error: null
+      };
 
-    case types.CLEAR:        
+    case types.CLEAR:
       return {
         ...state,
         loading: false,
         error: null
       };
 
-    case types.LOADING:        
+    case types.LOADING:
       return {
         ...state,
         loading: true,
         error: null
       };
 
-    case types.ERROR:        
-        return {
-          ...state,
-          loading: false,
-          error: action.payload.error
-        };
+    case types.ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
+      };
 
     default:
       return state;

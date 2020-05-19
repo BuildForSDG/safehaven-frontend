@@ -23,7 +23,6 @@ const SignIn = () => {
 
   const isLoading = useSelector(({ auth }) => auth.loading);
 
-
   const handleInputChange = (e) => {
     dispatch(clearError());
     setState({
@@ -50,7 +49,7 @@ const SignIn = () => {
     <AuthLayout>
       <div>
         <form onSubmit={handleSubmit} method="post">
-        {error && <div className={styles.Error}>{error}</div>}
+          {error && <div className={styles.Error}>{error}</div>}
 
           <TextField
             label="Email"

@@ -6,7 +6,8 @@ import woman from '../../assets/images/woman.svg';
 
 const AuthLayout = ({ children }) => {
   const { pathname } = useLocation();
-  const loginclass = pathname === '/signup' || pathname === '/provider'? styles.Inactive : '';
+  const loginclass =
+    pathname === '/signup' || pathname === '/provider' ? styles.Inactive : '';
   const signupclass = pathname === '/login' ? styles.Inactive : '';
   return (
     <div className={styles.Container}>

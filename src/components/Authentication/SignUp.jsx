@@ -172,7 +172,9 @@ const SignUp = () => {
           {pathname === '/provider' && (
             <div className={styles.Optional}>
               <div className={styles.Docs}>
-                <span className={styles.Asterisk}>Upload Certificate<i>*</i></span>
+                <span className={styles.Asterisk}>
+                  Upload Certificate<i>*</i>
+                </span>
                 <Button
                   className={styles.Upload}
                   variant="contained"
@@ -194,7 +196,9 @@ const SignUp = () => {
                 </Button>
               </div>
               <div className={styles.Docs}>
-              <span className={styles.Asterisk}>Upload Valid ID<i>*</i></span>
+                <span className={styles.Asterisk}>
+                  Upload Valid ID<i>*</i>
+                </span>
                 <Button
                   className={styles.Upload}
                   variant="contained"
