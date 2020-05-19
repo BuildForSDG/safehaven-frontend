@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -18,12 +18,15 @@ import sent from '../../assets/images/sent.svg';
 
 const SignUp = () => {
   const history = useHistory();
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const [state, setState] = React.useState({
-    showPassword: false
+    showPassword: false,
+    idPreview: '',
+    certificatePreview: ''
   });
   const error = useSelector(({ auth }) => {
-    return auth.error.msg;
+    return auth.error ? auth.error.msg : '';
   });
 
   const success = useSelector(({ auth }) => auth.success.status === 'success');
@@ -37,11 +40,28 @@ const SignUp = () => {
       [e.currentTarget.name]: e.currentTarget.value
     });
   };
+  const handleCertificate = (e) => {
+    dispatch(clearError());
+    setState({
+      ...state,
+      certificate: e.target.files,
+      certificatePreview: URL.createObjectURL(e.target.files[0])
+    });
+  };
+
+  const handleIdUpload = (e) => {
+    dispatch(clearError());
+    setState({
+      ...state,
+      validId: e.target.files,
+      idPreview: URL.createObjectURL(e.target.files[0])
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loading());
-    dispatch(signUp({...state, conditions: 'none'}));
+    dispatch(signUp({ ...state, conditions: 'none' }, pathname));
   };
 
   const handleClickShowPassword = () => {
@@ -59,115 +79,168 @@ const SignUp = () => {
 
   return (
     <AuthLayout>
-      <Modal
-        open={success}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <div className={styles.Success}>
-          <img src={smallLogo} alt="logo" />
-          <img className={styles.Sent} src={sent} alt="email sent" />
-          <p className={styles.Big}>Thank you for signing up!</p>
-          <p>
-            We have sent you an email, verify your email to gain access to our
-            services.
-          </p>
-        </div>
-      </Modal>
-      <form onSubmit={handleSubmit} method="post">
-        {error && <div className={styles.Error}>{error}</div>}
-        <TextField
-          label="First name"
-          className={`${styles.InputField} ${styles.Small}`}
-          onChange={handleInputChange}
-          required
-          variant="outlined"
-          name="firstName"
-          inputProps={{
-            minLength: 2
-          }}
-        />
-        <TextField
-          label="Last name"
-          className={`${styles.InputField} ${styles.Small}`}
-          onChange={handleInputChange}
-          required
-          variant="outlined"
-          name="surName"
-          inputProps={{
-            minLength: 2
-          }}
-        />
+      <div>
+        <Modal
+          open={success}
+          onClose={handleClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div className={styles.Success}>
+            <img src={smallLogo} alt="logo" />
+            <img className={styles.Sent} src={sent} alt="email sent" />
+            <p className={styles.Big}>Thank you for signing up!</p>
+            <p>
+              We have sent you an email, verify your email to gain access to our
+              services.
+            </p>
+          </div>
+        </Modal>
+        <form
+          onSubmit={handleSubmit}
+          method="post"
+          encType="multipart/form-data"
+        >
+          {error && <div className={styles.Error}>{error}</div>}
+          <TextField
+            label="First name"
+            className={`${styles.InputField} ${styles.Small}`}
+            onChange={handleInputChange}
+            required
+            variant="outlined"
+            name="firstName"
+            inputProps={{
+              minLength: 2
+            }}
+          />
+          <TextField
+            label="Last name"
+            className={`${styles.InputField} ${styles.Small}`}
+            onChange={handleInputChange}
+            required
+            variant="outlined"
+            name="surName"
+            inputProps={{
+              minLength: 2
+            }}
+          />
 
-        <TextField
-          label="Email"
-          className={`${styles.InputField} ${styles.Small}`}
-          onChange={handleInputChange}
-          required
-          variant="outlined"
-          name="email"
-          type="email"
-        />
-        <TextField
-          label="Phone Number"
-          className={`${styles.InputField} ${styles.Small}`}
-          onChange={handleInputChange}
-          variant="outlined"
-          name="phone"
-        />
+          <TextField
+            label="Email"
+            className={`${styles.InputField} ${styles.Small}`}
+            onChange={handleInputChange}
+            required
+            variant="outlined"
+            name="email"
+            type="email"
+          />
+          <TextField
+            label="Phone Number"
+            className={`${styles.InputField} ${styles.Small}`}
+            onChange={handleInputChange}
+            variant="outlined"
+            name="phone"
+          />
 
-        <TextField
-          label="Password"
-          className={`${styles.InputField} ${styles.Wide}`}
-          onChange={handleInputChange}
-          required
-          type={state.showPassword ? 'text' : 'password'}
-          variant="outlined"
-          name="password"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
+          <TextField
+            label="Password"
+            className={`${styles.InputField} ${styles.Wide}`}
+            onChange={handleInputChange}
+            required
+            type={state.showPassword ? 'text' : 'password'}
+            variant="outlined"
+            name="password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {state.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+            // eslint-disable-next-line react/jsx-no-duplicate-props
+            inputProps={{
+              minLength: 8
+            }}
+          />
+
+          {pathname === '/provider' && (
+            <div className={styles.Optional}>
+              <div className={styles.Docs}>
+                <span className={styles.Asterisk}>Upload Certificate<i>*</i></span>
+                <Button
+                  className={styles.Upload}
+                  variant="contained"
+                  component="label"
+                  style={{
+                    backgroundImage: `url(${state.certificatePreview})`
+                  }}
                 >
-                  {state.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            )
-          }}
-          // eslint-disable-next-line react/jsx-no-duplicate-props
-          inputProps={{
-            minLength: 8
-          }}
-        />
+                  {!state.certificatePreview && <span>Upload File</span>}
+                  {state.certificatePreview && <span>change File</span>}
+                  <input
+                    type="file"
+                    multiple="false"
+                    name="validCertificate"
+                    onChange={handleCertificate}
+                    required
+                    style={{ display: 'none' }}
+                  />
+                </Button>
+              </div>
+              <div className={styles.Docs}>
+              <span className={styles.Asterisk}>Upload Valid ID<i>*</i></span>
+                <Button
+                  className={styles.Upload}
+                  variant="contained"
+                  component="label"
+                  style={{ backgroundImage: `url(${state.idPreview})` }}
+                >
+                  {!state.idPreview && <span>Upload File</span>}
+                  {state.idPreview && <span>change File</span>}
+                  <input
+                    type="file"
+                    multiple="false"
+                    name="validCard"
+                    onChange={handleIdUpload}
+                    required
+                    style={{ display: 'none' }}
+                  />
+                </Button>
+              </div>
+            </div>
+          )}
 
-        <div className={styles.ButtonContainer}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={isLoading}
-          >
-            SignUp
-          </Button>
-        </div>
+          <div className={styles.ButtonContainer}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isLoading}
+            >
+              SignUp
+            </Button>
+          </div>
 
-        <p>OR</p>
+          <p>OR</p>
 
-        <div className={styles.ButtonContainer}>
-          <Button
-            type="submit"
-            variant="contained"
-            className={styles.FB}
-            startIcon={<FacebookIcon />}
-          >
-            connect with facebook
-          </Button>
-        </div>
-      </form>
+          <div className={styles.ButtonContainer}>
+            <Button
+              type="submit"
+              variant="contained"
+              className={styles.FB}
+              startIcon={<FacebookIcon />}
+            >
+              connect with facebook
+            </Button>
+          </div>
+        </form>
+      </div>
     </AuthLayout>
   );
 };

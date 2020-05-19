@@ -10,25 +10,33 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import styles from './auth.scss';
 import AuthLayout from './AuthLayout';
-import signUp from '../../redux/actions/authAction';
-
+import { signIn, clearError, loading } from '../../redux/actions/authAction';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const [state, setState] = React.useState({});
-  const dummyText = useSelector((store) => store.example.exampleText);
-
-
-  const handleInputChange = (e) => setState({
-    ...state,
-    [e.currentTarget.name]: e.currentTarget.value
+  const [state, setState] = React.useState({
+    showPassword: false
   });
+  const error = useSelector(({ auth }) => {
+    return auth.error;
+  });
+
+  const isLoading = useSelector(({ auth }) => auth.loading);
+
+
+  const handleInputChange = (e) => {
+    dispatch(clearError());
+    setState({
+      ...state,
+      [e.currentTarget.name]: e.currentTarget.value
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(state);
-    dispatch(signUp(state));
-  }
+    dispatch(loading());
+    dispatch(signIn(state));
+  };
 
   const handleClickShowPassword = () => {
     setState({ ...state, showPassword: !state.showPassword });
@@ -38,62 +46,76 @@ const SignIn = () => {
     event.preventDefault();
   };
 
-  return(
-  <AuthLayout>
-    {dummyText}
-    <form onSubmit={handleSubmit} method="post">
-      <TextField
-        label="Email"
-        className={`${styles.InputField} ${styles.Wide}`}
-        onChange={handleInputChange}
-        required
-        variant="outlined"
-        name="email"
-      />
+  return (
+    <AuthLayout>
+      <div>
+        <form onSubmit={handleSubmit} method="post">
+        {error && <div className={styles.Error}>{error}</div>}
 
-<TextField
-        label="Password"
-        className={`${styles.InputField} ${styles.Wide}`}
-        onChange={handleInputChange}
-        required
-        type={state.showPassword ? 'text' : 'password'}
-        variant="outlined"
-        name="password"
-        InputProps={{
-          minLength: 8,
-          endAdornment: (
-            <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
+          <TextField
+            label="Email"
+            className={`${styles.InputField} ${styles.Wide}`}
+            onChange={handleInputChange}
+            required
+            variant="outlined"
+            name="email"
+            type="email"
+          />
+
+          <TextField
+            label="Password"
+            className={`${styles.InputField} ${styles.Wide}`}
+            onChange={handleInputChange}
+            required
+            type={state.showPassword ? 'text' : 'password'}
+            variant="outlined"
+            name="password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {state.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+            // eslint-disable-next-line react/jsx-no-duplicate-props
+            inputProps={{
+              minLength: 8
+            }}
+          />
+
+          <div className={styles.ButtonContainer}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isLoading}
             >
-              {state.showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
-          </InputAdornment>
-          ),
-        }}
-      />
-      <div className={styles.ButtonContainer}>
-        <Button type="submit" variant="contained" color="primary">
-          SignIn
-        </Button>
-      </div>
+              SignUp
+            </Button>
+          </div>
 
-      <p>OR</p>
+          <p>OR</p>
 
-      <div className={styles.ButtonContainer}>
-        <Button
-          type="submit"
-          variant="contained"
-          className={styles.FB}
-          startIcon={<FacebookIcon />}
-        >
-          connect with facebook
-        </Button>
+          <div className={styles.ButtonContainer}>
+            <Button
+              type="submit"
+              variant="contained"
+              className={styles.FB}
+              startIcon={<FacebookIcon />}
+            >
+              connect with facebook
+            </Button>
+          </div>
+        </form>
       </div>
-    </form>
-  </AuthLayout>
-)};
+    </AuthLayout>
+  );
+};
 
 export default SignIn;

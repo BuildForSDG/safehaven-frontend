@@ -19,6 +19,7 @@ const Router = () => (
   <ThemeProvider theme={theme}>
     <Switch>
     <Route exact path="/login" render={() => <Default><SignIn /> </Default>} />
+    <Route exact path="/provider" render={() => <Default><SignUp /> </Default>} />
     <Route exact path="/signup" render={() => <Default><SignUp /> </Default>} />
     <Route exact path="/" render={() => <Default><Example /> </Default>}/>
   </Switch>
