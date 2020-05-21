@@ -103,7 +103,7 @@ const SignIn = () => {
 
           <div className={styles.ButtonContainer}>
             <Button
-              type="submit"
+              type="button"
               variant="contained"
               className={styles.FB}
               startIcon={<FacebookIcon />}

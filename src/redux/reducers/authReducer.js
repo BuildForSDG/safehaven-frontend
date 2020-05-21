@@ -1,11 +1,11 @@
 import * as types from '../actions/actionTypes';
 
 
-const initialState = {
+export const initialState = {
   success: {},
   error: null,
   loading: false,
-  user: {}
+  signedIn: false
 };
 
 const authReducer = (state = initialState, action) => {
@@ -22,7 +22,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        success: action.payload,
+        signedIn: true,
         error: null
       };
 
