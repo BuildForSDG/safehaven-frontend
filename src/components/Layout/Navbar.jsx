@@ -2,6 +2,7 @@ import React from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.svg';
 import styles from './layout.scss';
 
@@ -31,7 +32,9 @@ const Navbar = () => {
         <li>Chat Now</li>
         <li>Providers</li>
       </ul>
-      <button type="button">Login/SignUp</button>
+      <Link to="login" className={styles.Signin}>
+        Login/SignUp
+      </Link>
 
       <React.Fragment key="right">
         <button
