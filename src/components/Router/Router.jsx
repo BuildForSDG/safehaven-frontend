@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 
-import Example from '../Example/Example';
 import Default from '../Layout/DefaultLayout';
 import SignUp from '../Authentication/SignUp';
 import SignIn from '../Authentication/SignIn';
@@ -21,7 +20,7 @@ const Router = () => (
     <Route exact path="/login" render={() => <Default><SignIn /> </Default>} />
     <Route exact path="/provider" render={() => <Default><SignUp /> </Default>} />
     <Route exact path="/signup" render={() => <Default><SignUp /> </Default>} />
-    <Route exact path="/" render={() => <Default><Example /> </Default>}/>
+    <Route exact path="/" render={() => <Default> </Default>}/>
   </Switch>
   </ThemeProvider>
   

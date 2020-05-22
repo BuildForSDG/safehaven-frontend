@@ -52,12 +52,13 @@ nav {
     }
   }
 
-  button {
+  .Signin {
+    text-decoration: none;
     background: #000;
-    color: #00bf00;
-    border-color: #00bf00;
+    border: solid 1px #00bf00;
     font-size: 1.5rem;
     padding: 1rem;
+    color: #00bf00 !important;
 
     @media (max-width: 767.98px) {
       display: none;
