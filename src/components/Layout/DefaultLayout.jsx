@@ -1,5 +1,5 @@
 import React from 'react';
-import { object as objectprop } from 'prop-types';
+import { node } from 'prop-types';
 
 // Import components
 import Nav from './Navbar';
@@ -19,7 +19,7 @@ const DefaultLayout = ({ children }) => (
 );
 
 DefaultLayout.propTypes = {
-  children: objectprop.isRequired,
+  children: node.isRequired
 };
 
 export default DefaultLayout;
