@@ -28,7 +28,9 @@ const Navbar = () => {
 
   return (
     <nav className={styles.Black} style={navbarStyle}>
-      <img src={logo} alt="logo" />
+      <Link to="/">
+        <img src={logo} alt="logo" />
+      </Link>    
       <ul>
         <li>About Us</li>
         <li>Consult</li>
@@ -70,7 +72,7 @@ const Navbar = () => {
               <li>Specialists</li>
               <li>Chat Now</li>
               <li>Providers</li>
-              <li>Login/SignUp</li>
+              <li><Link to="login">Login/SignUp</Link></li>
             </ul>
           </div>
         </SwipeableDrawer>
