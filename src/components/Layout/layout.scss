@@ -9,19 +9,11 @@ nav {
   justify-content: space-between;
   align-items: center;
 
-  img {
-    width: 15%;
+  a img {
+    width: 70%;
 
     @media (max-width: 991.98px) {
-      width: 20%;
-    }
-
-    @media (max-width: 767.98px) {
-      width: 30%;
-    }
-
-    @media (max-width: 575.98px) {
-      width: 40%;
+      width: 60%;
     }
   }
 
@@ -154,7 +146,7 @@ footer {
       margin-top: 10rem;
 
       @media (max-width: 575.98px) {
-        margin-right: 8rem;
+        margin-right: 4rem;
       }
 
       li {

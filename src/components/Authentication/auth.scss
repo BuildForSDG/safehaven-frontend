@@ -113,6 +113,18 @@ form {
   .FormContainer {
     width: 30%;
 
+    @media (max-width: 991.98px) {
+      width: 40%;
+    }
+
+    @media (max-width: 767.98px) {
+      width: 80%;
+    }
+
+    @media (max-width: 375.98px) {
+      width: 90%;
+    }
+
     .Top {
       display: flex;
       color: #fff;
@@ -133,18 +145,6 @@ form {
     .Inner {
       border: solid 1px #fff;
       border-radius: 1rem;
-
-      @media (max-width: 991.98px) {
-        width: 40%;
-      }
-
-      @media (max-width: 767.98px) {
-        width: 80%;
-      }
-
-      @media (max-width: 375.98px) {
-        width: 90%;
-      }
 
       .Links {
         display: flex;

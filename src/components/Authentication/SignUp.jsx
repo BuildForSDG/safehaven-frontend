@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -182,11 +181,13 @@ const SignUp = () => {
                   style={{
                     backgroundImage: `url(${state.certificatePreview})`
                   }}
+                  id="certButton"
                 >
                   {!state.certificatePreview && <span>Upload File</span>}
                   {state.certificatePreview && <span>change File</span>}
                   <input
                     type="file"
+                    id="certInput"
                     multiple="false"
                     name="validCertificate"
                     onChange={handleCertificate}
@@ -200,6 +201,7 @@ const SignUp = () => {
                   Upload Valid ID<i>*</i>
                 </span>
                 <Button
+                  id="idButton"
                   className={styles.Upload}
                   variant="contained"
                   component="label"
@@ -208,6 +210,7 @@ const SignUp = () => {
                   {!state.idPreview && <span>Upload File</span>}
                   {state.idPreview && <span>change File</span>}
                   <input
+                  id="idInput"
                     type="file"
                     multiple="false"
                     name="validCard"
