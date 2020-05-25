@@ -6,6 +6,7 @@ import green from '@material-ui/core/colors/green';
 import Default from '../Layout/DefaultLayout';
 import SignUp from '../Authentication/SignUp';
 import SignIn from '../Authentication/SignIn';
+import LandingPage from '../LandingPage/LandingPage';
 
 const theme = createMuiTheme({
       palette: {
@@ -20,7 +21,7 @@ const Router = () => (
     <Route exact path="/login" render={() => <Default><SignIn /> </Default>} />
     <Route exact path="/provider" render={() => <Default><SignUp /> </Default>} />
     <Route exact path="/signup" render={() => <Default><SignUp /> </Default>} />
-    <Route exact path="/" render={() => <Default> </Default>}/>
+    <Route exact path="/" render={() => <Default><LandingPage /> </Default>}/>
   </Switch>
   </ThemeProvider>
   

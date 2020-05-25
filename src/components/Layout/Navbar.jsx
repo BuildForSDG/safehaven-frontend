@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -23,8 +24,10 @@ const Navbar = () => {
     setState({ ...state, [anchor]: open });
   };
 
+  const navbarStyle = useSelector((reduxState) => reduxState.navbarStyle);
+
   return (
-    <nav className={styles.Black}>
+    <nav className={styles.Black} style={navbarStyle}>
       <img src={logo} alt="logo" />
       <ul>
         <li>About Us</li>
@@ -32,7 +35,7 @@ const Navbar = () => {
         <li>Chat Now</li>
         <li>Providers</li>
       </ul>
-      <Link to="login" className={styles.Signin}>
+      <Link to="login" className={styles.Signin} style={navbarStyle}>
         Login/SignUp
       </Link>
 
@@ -42,6 +45,7 @@ const Navbar = () => {
           type="button"
           aria-label="menu"
           onClick={toggleDrawer('right', true)}
+          style={navbarStyle}
         >
           <MenuIcon style={{ fontSize: 30 }} />
         </button>
