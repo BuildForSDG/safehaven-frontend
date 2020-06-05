@@ -8,9 +8,11 @@ const BASE_URL = 'http://localhost:9000/api/v1';
 
 const signUp = (payload, pathname) => {
   const url = pathname === '/signup' ? `${BASE_URL}/auth/signup-patient` : `${BASE_URL}/auth/signup-consultant`;
+  const userDetails = pathname === '/signup' ? {...payload, role: 'patient'} : {...payload, role: 'consultant'};
+
   return async dispatch => {
     try {
-      const request = await post(url, payload);
+      const request = await post(url, userDetails);
       dispatch(
         {
           type: actionTypes.SIGN_UP,
@@ -34,8 +36,7 @@ const signIn = (payload) => {
   return async dispatch => {
     try {
       const request = await post(`${BASE_URL}/auth/login`, payload);
-      storeInLocal(request.data.createdToken, localStorage);
-      
+      storeInLocal(request.data.data.token, localStorage);
       dispatch(
         {
           type: actionTypes.SIGN_IN,
@@ -59,4 +60,8 @@ const loading = () => ({
   type: actionTypes.LOADING,
 })
 
-export { signUp, clearError, loading, signIn };
+const clearSuccess = () => ({
+  type: actionTypes.CLEAR_SIGN_UP,
+})
+
+export { signUp, clearError, loading, signIn, clearSuccess };

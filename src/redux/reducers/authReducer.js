@@ -18,6 +18,14 @@ const authReducer = (state = initialState, action) => {
         error: null
       };
 
+      case types.CLEAR_SIGN_UP:
+        return {
+          ...state,
+          loading: false,
+          success: {},
+          error: null
+        };
+
     case types.SIGN_IN:
       return {
         ...state,

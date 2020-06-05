@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
@@ -8,17 +7,25 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { useHistory } from 'react-router-dom';
 import styles from './auth.scss';
 import AuthLayout from './AuthLayout';
 import { signIn, clearError, loading } from '../../redux/actions/authAction';
 
 const SignIn = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [state, setState] = React.useState({
     showPassword: false
   });
   const error = useSelector(({ auth }) => {
     return auth.error;
+  });
+
+  useSelector(({ auth }) => {
+    if (auth.signedIn) {
+      history.push('/profile');
+    }
   });
 
   const isLoading = useSelector(({ auth }) => auth.loading);
@@ -95,7 +102,7 @@ const SignIn = () => {
               color="primary"
               disabled={isLoading}
             >
-              SignUp
+              Login
             </Button>
           </div>
 
