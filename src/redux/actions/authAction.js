@@ -4,10 +4,8 @@ import * as actionTypes from './actionTypes';
 
 dotenv.config();
 
-const BASE_URL = 'http://localhost:9000/api/v1';
-
 const signUp = (payload, pathname) => {
-  const url = pathname === '/signup' ? `${BASE_URL}/auth/signup-patient` : `${BASE_URL}/auth/signup-consultant`;
+  const url = pathname === '/signup' ? `/auth/signup-patient` : `/auth/signup-consultant`;
   const userDetails = pathname === '/signup' ? {...payload, role: 'patient'} : {...payload, role: 'consultant'};
 
   return async dispatch => {
@@ -35,7 +33,7 @@ const storeInLocal = (token, localStorage) => {
 const signIn = (payload) => {
   return async dispatch => {
     try {
-      const request = await post(`${BASE_URL}/auth/login`, payload);
+      const request = await post(`/auth/login`, payload);
       storeInLocal(request.data.data.token, localStorage);
       dispatch(
         {

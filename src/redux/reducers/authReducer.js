@@ -38,7 +38,8 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: null
+        error: null,
+        signedIn: false
       };
 
     case types.LOADING:

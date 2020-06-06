@@ -14,6 +14,7 @@ import EditUser from './EditUser';
 import TabPanel from './TabPanel';
 import smallLogo from '../../assets/images/smallLogo.png';
 import { getProfile } from '../../redux/actions/profileAction';
+import { clearError } from '../../redux/actions/authAction';
 
 /**
  * @function DefaultLayout
@@ -47,17 +48,22 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
+    dispatch(clearError());
     dispatch(getProfile());
   }, []);
+
   useSelector(({ profile }) => {
-    if (profile.error || !profile.user) history.push('/signup');
+    if (profile.error || !profile.user) {
+      history.push('/login');
+    }
   });
 
   const handleClose = () => {
     history.push('/profile');
   };
+
   return (
-    <div className={styles.Container}>
+    <div className={styles.ProfileContainer}>
       {pathname === '/profile/edit' && (
         <EditUser
           surName={surName}

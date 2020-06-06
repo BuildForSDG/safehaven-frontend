@@ -4,13 +4,11 @@ import * as actionTypes from './actionTypes';
 
 dotenv.config();
 
-const BASE_URL = 'http://localhost:9000/api/v1';
-
 const getProfile = () => {
     const token = localStorage.getItem("SHtoken");
   return async dispatch => {
     try {
-      const request = await get(`${BASE_URL}/profile/${token}`, );
+      const request = await get(`/profile/${token}`, );
       dispatch(
         {
           type: actionTypes.GET_PROFILE,
@@ -30,7 +28,7 @@ const editProfile = (payload) => {
     const token = localStorage.getItem("SHtoken");
   return async dispatch => {
     try {
-      const request = await patch(`${BASE_URL}/profile/${token}`, payload);
+      const request = await patch(`/profile/${token}`, payload);
       dispatch(
         {
           type: actionTypes.EDIT_PROFILE,

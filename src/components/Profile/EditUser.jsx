@@ -113,8 +113,12 @@ const EditUser = ({
               />
             </Button>
           </div>
-          {(error && error.msg) && <div className={styles.Error}>{error.msg} in {error.param}</div>}
-          {(error && !error.msg) && <div className={styles.Error}>{error}</div>}
+          {error && error.msg && (
+            <div className={styles.Error}>
+              {error.msg} in {error.param}
+            </div>
+          )}
+          {error && !error.msg && <div className={styles.Error}>{error}</div>}
           <TextField
             label="First name"
             className={`${styles.InputField} ${styles.Small}`}
@@ -157,6 +161,7 @@ const EditUser = ({
             onChange={handleInputChange}
             variant="outlined"
             name="phone"
+            type="number"
             required
           />
           <FormControl
