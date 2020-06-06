@@ -9,7 +9,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Modal from '@material-ui/core/Modal';
-import { signUp, clearError, loading } from '../../redux/actions/authAction';
+import { signUp, clearError, loading, clearSuccess } from '../../redux/actions/authAction';
 import AuthLayout from './AuthLayout';
 import styles from './auth.scss';
 import smallLogo from '../../assets/images/smallLogo.svg';
@@ -73,6 +73,7 @@ const SignUp = () => {
 
   const handleClose = () => {
     setState({ ...state, success: false });
+    dispatch(clearSuccess());
     history.push('/');
   };
 
