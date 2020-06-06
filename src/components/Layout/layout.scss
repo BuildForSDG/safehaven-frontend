@@ -58,6 +58,18 @@ nav {
   }
 }
 
+.NotFound {
+  background-color: #1f1f1f;
+  padding-top: 5%;
+  padding-bottom: 5%;
+
+  img {
+    display: block;
+    width: 50%;
+    margin: auto;
+  }
+}
+
 footer {
   padding: 8rem 3rem;
   font-size: 1.2rem;
@@ -154,17 +166,5 @@ footer {
         list-style: none;
       }
     }
-  }
-}
-
-.NotFound {
-  background-color: #1f1f1f;
-  padding-top: 5%;
-  padding-bottom: 5%;
-
-  img {
-    display: block;
-    width: 50%;
-    margin: auto;
   }
 }
