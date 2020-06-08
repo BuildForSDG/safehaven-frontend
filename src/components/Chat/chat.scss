@@ -1,0 +1,47 @@
+.ChatContainer {
+  height: 100vh;
+  background: #1f1f1f;
+  margin-left: 8rem;
+
+  .ChatBox {
+    width: 50%;
+    height: 100vh;
+    background: #000;
+    overflow-x: scroll;
+
+    .Parent {
+      padding: 3rem;
+      margin: 3rem;
+      width: 50%;
+      background: #C4C4C4;
+      border-radius: 10px 10px 10px 0;
+      float: left;
+    }
+
+    .Response {
+      padding: 3rem;
+      margin: 3rem;
+      width: 50%;
+      background: #1D9001;
+      border-radius: 10px 10px 0 10px;
+      float: right;
+    }
+
+    .TextField {
+      width: inherit;
+      position: fixed;
+      bottom: 0;
+
+      .InputField {
+        width: 90%;
+        height: 4rem;
+        
+      }
+
+      button {
+        width: 10%;
+        height: 4.5rem;
+      }
+    }
+  }
+}

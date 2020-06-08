@@ -52,7 +52,7 @@ const profileReducer = (state = initialState, action) => {
         error: null
       };
 
-    case types.ERROR:
+    case types.PROFILE_ERROR:
       return {
         ...state,
         loading: false,

@@ -19,7 +19,7 @@ const SignIn = () => {
     showPassword: false
   });
   const error = useSelector(({ auth }) => {
-    return auth.error;
+    return !auth.error ? '' : auth.error;
   });
 
   useSelector(({ auth }) => {

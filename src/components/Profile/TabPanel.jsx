@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {string} from 'prop-types';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -23,9 +23,9 @@ function TabPanel(props) {
 }
 
 TabPanel.propTypes = {
-  children: PropTypes.node.isRequired,
-  value: PropTypes.string.isRequired,
-  index: PropTypes.string.isRequired
+  children: string.isRequired,
+  value: string.isRequired,
+  index: string.isRequired
 }
 
 export default TabPanel;

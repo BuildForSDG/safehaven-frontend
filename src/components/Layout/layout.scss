@@ -168,3 +168,65 @@ footer {
     }
   }
 }
+
+
+.ProfileNav {
+  height: 100vh;
+  width: 8rem;
+  position: fixed;
+  background: #000;
+  z-index: 1;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      list-style: none;
+      margin: 1rem 0;
+
+      img {
+        width: 50%;
+        display: block;
+        margin: auto;
+
+        @media (max-width: 424.98px) {
+          margin-top: 1rem;
+        }
+      }
+
+      a {
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        align-items: center;
+
+        @media (max-width: 424.98px) {
+          padding: 1.3rem 2rem;
+        }
+
+        span {
+          @media (max-width: 424.98px) {
+            display: none;
+          }
+        }
+      }
+
+      @media (max-width: 424.98px) {
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 424.98px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+
+  @media (max-width: 424.98px) {
+    width: 100vw;
+    height: 5rem;
+  }
+}

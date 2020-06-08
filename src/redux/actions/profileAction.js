@@ -17,7 +17,7 @@ const getProfile = () => {
       );
     } catch (error) {
       dispatch({
-        type: actionTypes.ERROR,
+        type: actionTypes.PROFILE_ERROR,
         payload: error.response.data
       });
     }
