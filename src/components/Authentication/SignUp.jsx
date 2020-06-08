@@ -2,6 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,7 +12,12 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Modal from '@material-ui/core/Modal';
-import { signUp, clearError, loading, clearSuccess } from '../../redux/actions/authAction';
+import {
+  signUp,
+  clearError,
+  loading,
+  clearSuccess
+} from '../../redux/actions/authAction';
 import AuthLayout from './AuthLayout';
 import styles from './auth.scss';
 import smallLogo from '../../assets/images/smallLogo.svg';
@@ -25,7 +33,7 @@ const SignUp = () => {
     certificatePreview: ''
   });
   const error = useSelector(({ auth }) => {
-    return auth.error ? auth.error.msg : '';
+    return auth.error ? auth.error : '';
   });
 
   const success = useSelector(({ auth }) => auth.success.status === 'success');
@@ -43,7 +51,7 @@ const SignUp = () => {
     dispatch(clearError());
     setState({
       ...state,
-      certificate: e.target.files,
+      certificate: e.target.files[0],
       certificatePreview: URL.createObjectURL(e.target.files[0])
     });
   };
@@ -52,7 +60,7 @@ const SignUp = () => {
     dispatch(clearError());
     setState({
       ...state,
-      validId: e.target.files,
+      validId: e.target.files[0],
       idPreview: URL.createObjectURL(e.target.files[0])
     });
   };
@@ -101,7 +109,12 @@ const SignUp = () => {
           method="post"
           encType="multipart/form-data"
         >
-          {error && <div className={styles.Error}>{error}</div>}
+          {error && (
+            <div className={styles.Error}>
+              {error.msg}
+              {error.param && <span> in {error.param}</span>}
+            </div>
+          )}
           <TextField
             label="First name"
             className={`${styles.InputField} ${styles.Small}`}
@@ -124,7 +137,6 @@ const SignUp = () => {
               minLength: 2
             }}
           />
-
           <TextField
             label="Email"
             className={`${styles.InputField} ${styles.Small}`}
@@ -140,6 +152,7 @@ const SignUp = () => {
             onChange={handleInputChange}
             variant="outlined"
             name="phone"
+            required
           />
 
           <TextField
@@ -170,56 +183,77 @@ const SignUp = () => {
           />
 
           {pathname === '/provider' && (
-            <div className={styles.Optional}>
-              <div className={styles.Docs}>
-                <span className={styles.Asterisk}>
-                  Upload Certificate<i>*</i>
-                </span>
-                <Button
-                  className={styles.Upload}
-                  variant="contained"
-                  component="label"
-                  style={{
-                    backgroundImage: `url(${state.certificatePreview})`
+            <div>
+              <FormControl
+                variant="outlined"
+                className={`${styles.InputField} ${styles.Wide}`}
+              >
+                <InputLabel>Area of specialization</InputLabel>
+                <Select
+                  native
+                  value={state.gender}
+                  onChange={handleInputChange}
+                  inputProps={{
+                    name: 'specialization'
                   }}
-                  id="certButton"
                 >
-                  {!state.certificatePreview && <span>Upload File</span>}
-                  {state.certificatePreview && <span>change File</span>}
-                  <input
-                    type="file"
-                    id="certInput"
-                    multiple="false"
-                    name="validCertificate"
-                    onChange={handleCertificate}
-                    required
-                    style={{ display: 'none' }}
-                  />
-                </Button>
-              </div>
-              <div className={styles.Docs}>
-                <span className={styles.Asterisk}>
-                  Upload Valid ID<i>*</i>
-                </span>
-                <Button
-                  id="idButton"
-                  className={styles.Upload}
-                  variant="contained"
-                  component="label"
-                  style={{ backgroundImage: `url(${state.idPreview})` }}
-                >
-                  {!state.idPreview && <span>Upload File</span>}
-                  {state.idPreview && <span>change File</span>}
-                  <input
-                  id="idInput"
-                    type="file"
-                    multiple="false"
-                    name="validCard"
-                    onChange={handleIdUpload}
-                    required
-                    style={{ display: 'none' }}
-                  />
-                </Button>
+                  <option aria-label="none" value="" />
+                  <option value="psychotherapy">Psychotherapy</option>
+                  <option value="counseling">Counseling</option>
+                  <option value="psychology">Psychology</option>
+                </Select>
+              </FormControl>
+              <div className={styles.Optional}>
+                <div className={styles.Docs}>
+                  <span className={styles.Asterisk}>
+                    Upload Certificate<i>*</i>
+                  </span>
+                  <Button
+                    className={styles.Upload}
+                    variant="contained"
+                    component="label"
+                    style={{
+                      backgroundImage: `url(${state.certificatePreview})`
+                    }}
+                    id="certButton"
+                  >
+                    {!state.certificatePreview && <span>Upload File</span>}
+                    {state.certificatePreview && <span>change File</span>}
+                    <input
+                      type="file"
+                      id="certInput"
+                      multiple={false}
+                      name="validCertificate"
+                      onChange={handleCertificate}
+                      required
+                      style={{ display: 'none' }}
+                    />
+                  </Button>
+                </div>
+                <div className={styles.Docs}>
+                  <span className={styles.Asterisk}>
+                    Upload Valid ID<i>*</i>
+                  </span>
+                  <Button
+                    id="idButton"
+                    className={styles.Upload}
+                    variant="contained"
+                    component="label"
+                    style={{ backgroundImage: `url(${state.idPreview})` }}
+                  >
+                    {!state.idPreview && <span>Upload File</span>}
+                    {state.idPreview && <span>change File</span>}
+                    <input
+                      id="idInput"
+                      type="file"
+                      multiple={false}
+                      name="validCard"
+                      onChange={handleIdUpload}
+                      required
+                      style={{ display: 'none' }}
+                    />
+                  </Button>
+                </div>
               </div>
             </div>
           )}
