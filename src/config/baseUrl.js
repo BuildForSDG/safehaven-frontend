@@ -1,1 +1,1 @@
-export default window.location.href.includes('localhost') ? 'http://localhost:9000/api/v1' : 'https://safehaven-backend.herokuapp.com/api/v1';
+export default 'https://safehaven-backend.herokuapp.com/api/v1';
