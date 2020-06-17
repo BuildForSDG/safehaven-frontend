@@ -1,46 +1,134 @@
-.ChatContainer {
+.ChatPage {
+  display: flex;
   height: 100vh;
   background: #1f1f1f;
   margin-left: 8rem;
 
-  .ChatBox {
-    width: 50%;
+  @media (max-width: 424.98px) {
+    margin-left: 0;
+  }
+
+  .People {
+    width: 30%;
+    padding: 2rem;
+
+    @media (max-width: 424.98px) {
+      margin-top: 3rem;
+      width: 35%;
+      padding: 2rem 1rem;
+    }
+
+    h4 {
+      color: #fff;
+    }
+
+    .UserTab {
+      text-align: left;
+      height: 6rem;
+      width: 95%;
+      margin: auto;
+      border-bottom: 1px solid #000;
+      margin-top: 1rem;
+      padding: 2rem;
+      box-shadow: 0px 0px 2px rgb(41, 41, 41);
+      background: #2a2a2a;
+      text-transform: capitalize;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .List {
+      color: #fff;
+      height: 90vh;
+      overflow: scroll;
+    }
+  }
+
+  .ChatContainer {
     height: 100vh;
     background: #000;
     overflow-x: scroll;
+    width: 70%;
 
-    .Parent {
-      padding: 3rem;
-      margin: 3rem;
+    .NoChat {
+      color: #fff;
       width: 50%;
-      background: #C4C4C4;
-      border-radius: 10px 10px 10px 0;
-      float: left;
+      margin: 30% 50%;
+      img {
+        height: 10rem;
+      }
     }
 
-    .Response {
-      padding: 3rem;
-      margin: 3rem;
-      width: 50%;
-      background: #1D9001;
-      border-radius: 10px 10px 0 10px;
-      float: right;
+    @media (max-width: 424.98px) {
+      margin-top: 4rem;
+      width: 65%;
     }
 
-    .TextField {
-      width: inherit;
-      position: fixed;
-      bottom: 0;
+    .ChatBox {
+      .messages {
+        height: 80vh;
+        overflow: auto;
+        flex: auto;
+      }
+      .Parent {
+        padding: 1rem;
+        margin: 2rem 2rem 0;
+        width: 50%;
+        background: #c4c4c4;
+        border-radius: 10px 10px 10px 0;
+        float: left;
 
-      .InputField {
-        width: 90%;
-        height: 4rem;
-        
+        @media (max-width: 767.98px) {
+          width: 80%;
+        }
+
+        .name {
+          font-weight: bold;
+          text-transform: capitalize;
+        }
       }
 
-      button {
-        width: 10%;
-        height: 4.5rem;
+      .Response {
+        padding: 1rem;
+        margin: 2rem 2rem 0;
+        width: 50%;
+        background: #9cc392;
+        border-radius: 10px 10px 0 10px;
+        float: right;
+
+        @media (max-width: 767.98px) {
+          width: 80%;
+        }
+
+        .name {
+          font-weight: bold;
+          text-transform: capitalize;
+        }
+      }
+
+      .TextField {
+        margin-bottom: 3rem;
+        width: inherit;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 50%;
+
+        form {
+          padding: 0;
+        }
+
+        .InputField {
+          width: 93%;
+          height: 4rem;
+        }
+
+        button {
+          width: 10%;
+          height: 4.5rem;
+        }
       }
     }
   }

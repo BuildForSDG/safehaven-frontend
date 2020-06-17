@@ -8,7 +8,7 @@ import styles from './layout.scss';
 import smallLogo from '../../assets/images/smallLogo.png';
 
 /**
- * @function DefaultLayout
+ * @function ProfileLayout
  * @param {*} props
  * @returns {HTMLElement} default layout
  */

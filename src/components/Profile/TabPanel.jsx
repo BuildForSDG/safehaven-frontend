@@ -1,5 +1,6 @@
 import React from 'react';
-import {string} from 'prop-types';
+import {string, node} from 'prop-types';
+import styles from './profile.scss';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -14,16 +15,16 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <p>
+        <div className={styles.inner}>
           {children}
-        </p>
+        </div>
       )}
     </div>
   );
 }
 
 TabPanel.propTypes = {
-  children: string.isRequired,
+  children: node.isRequired,
   value: string.isRequired,
   index: string.isRequired
 }

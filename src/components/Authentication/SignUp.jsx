@@ -51,7 +51,7 @@ const SignUp = () => {
     dispatch(clearError());
     setState({
       ...state,
-      certificate: e.target.files[0],
+      validCertificate: e.target.files,
       certificatePreview: URL.createObjectURL(e.target.files[0])
     });
   };
@@ -60,7 +60,7 @@ const SignUp = () => {
     dispatch(clearError());
     setState({
       ...state,
-      validId: e.target.files[0],
+      validIdCard: e.target.files,
       idPreview: URL.createObjectURL(e.target.files[0])
     });
   };
@@ -225,7 +225,6 @@ const SignUp = () => {
                       multiple={false}
                       name="validCertificate"
                       onChange={handleCertificate}
-                      required
                       style={{ display: 'none' }}
                     />
                   </Button>
@@ -249,7 +248,6 @@ const SignUp = () => {
                       multiple={false}
                       name="validCard"
                       onChange={handleIdUpload}
-                      required
                       style={{ display: 'none' }}
                     />
                   </Button>
