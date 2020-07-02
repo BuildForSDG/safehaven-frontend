@@ -19,8 +19,8 @@ import Chat from '../../assets/images/chat.svg';
 import { setOtherUser, setMessages, messagesLoaded, loadingMessages, sendingMessage, messageSent } from '../../redux/actions/chatAction';
 import Messages from './Messages';
 
-// const iourl = 'https://safehaven-backend.herokuapp.com';
-const iourl = 'http://localhost:9000';
+const iourl = 'https://safehaven-backend.herokuapp.com';
+// const iourl = 'http://localhost:9000';
 
 // eslint-disable-next-line no-unused-vars
 let socket;
