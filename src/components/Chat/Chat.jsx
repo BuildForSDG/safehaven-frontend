@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -15,7 +16,7 @@ import Consultants from './Consultants';
 import Patients from './Patients';
 import { getProfile, clearError } from '../../redux/actions/profileAction';
 import Chat from '../../assets/images/chat.svg';
-import { setOtherUser, setMessages } from '../../redux/actions/chatAction';
+import { setOtherUser, setMessages, messagesLoaded, loadingMessages, sendingMessage, messageSent } from '../../redux/actions/chatAction';
 import Messages from './Messages';
 
 // const iourl = 'https://safehaven-backend.herokuapp.com';
@@ -37,6 +38,8 @@ const ChatPage = () => {
   const [value, setValue] = useState('one');
   const token = localStorage.getItem('SHtoken');
   const messages = useSelector(({ chat }) => chat.messages);
+  const loading = useSelector(({ chat }) => chat.loadingMessages);
+  const {sending} = useSelector(({ chat }) => chat);
   const otherPerson = useSelector(({ chat }) => chat.otherUuid);
   const user = useSelector(({ profile }) => {
     if (profile.error || !profile.user) {
@@ -76,13 +79,16 @@ const ChatPage = () => {
 
   useEffect(() => {
     socket.on('conversation', (data) => {
+      setMessage('');
+      dispatch(messageSent())
+      dispatch(messagesLoaded())
       if (data.connection) {
         setconnectionID(data.connection.uuid);
-        dispatch(setMessages(data.connection.chats, () => setMessage('')));
+        dispatch(setMessages(data.connection.chats));
       }
       if (data.chatReturned) {
         dispatch(
-          setMessages([...messages, data.chatReturned], () => setMessage(''))
+          setMessages([...messages, data.chatReturned])
         );
       }
     });
@@ -93,6 +99,7 @@ const ChatPage = () => {
       // eslint-disable-next-line no-alert
       alert('choose someone else to chat with');
     } else {
+      dispatch(loadingMessages())
       dispatch(setOtherUser(useruuid));
     }
   };
@@ -103,6 +110,7 @@ const ChatPage = () => {
 
   const sendMessage = (e) => {
     e.preventDefault();
+    dispatch(sendingMessage());
     if (message) {
       socket.emit(`${connectionID}-message`, {
         message,
@@ -119,7 +127,8 @@ const ChatPage = () => {
           <Tabs
             value={value}
             onChange={handleChange}
-            variant="fullWidth"
+            variant="scrollable"
+            scrollButtons="off"
             indicatorColor="primary"
             textColor="primary"
             aria-label="icon label tabs example"
@@ -145,7 +154,11 @@ const ChatPage = () => {
           )}
           {otherPerson && (
             <div className={styles.ChatBox}>
-              <Messages messages={messages} userId={user.uuid} />
+              <Messages
+                messages={messages}
+                userId={user.uuid}
+                loading={loading}
+              />
               <div className={styles.TextField}>
                 <form action="" onSubmit={sendMessage} method="post">
                   <TextField
@@ -153,13 +166,15 @@ const ChatPage = () => {
                     className={styles.InputField}
                     onChange={handleInputChange}
                     required
+                    value={message}
                     variant="outlined"
                     name="message"
                     type="text"
                     InputProps={{
                       endAdornment: (
-                        <InputAdornment position="end">
+                        <InputAdornment position="end" className={styles.EndButton}>
                           <IconButton
+                            disabled={sending}
                             aria-label="send"
                             type="submit"
                             variant="contained"
@@ -170,6 +185,7 @@ const ChatPage = () => {
                       )
                     }}
                   />
+                  {sending && <div className={styles.Progress}><LinearProgress /></div>}
                 </form>
               </div>
             </div>

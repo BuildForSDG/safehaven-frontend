@@ -7,7 +7,11 @@ export const initialState = {
   consultants: {},
   consultant: {},
   error: null,
-  messages: []
+  messages: [],
+  loadingMessages: false,
+  sending: false,
+  consultantsLoading: false,
+  patientsLoading: false
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -52,6 +56,54 @@ const chatReducer = (state = initialState, action) => {
         ...state,
         otherUuid: action.payload
       };
+
+    case types.LOADING_MESSAGE:
+      return {
+        ...state,
+        loadingMessages: true
+      };
+
+    case types.MESSAGE_LOADED:
+      return {
+        ...state,
+        loadingMessages: false
+      };
+
+    case types.SENDING_MESSAGE:
+      return {
+        ...state,
+        sending: true
+      };
+
+    case types.MESSAGE_SENT:
+      return {
+        ...state,
+        sending: false
+      };
+
+    case types.PATIENTS_LOADED:
+      return {
+        ...state,
+        patientsLoading: false
+      }
+
+    case types.CONSULTANTS_LOADED:
+      return {
+        ...state,
+        consultantsLoading: false
+      }
+
+    case types.PATIENTS_LOADING:
+      return {
+        ...state,
+        patientsLoading: true
+      }
+
+    case types.CONSULTANTS_LOADING:
+      return {
+        ...state,
+        consultantsLoading: false
+      }
 
     default:
       return state;

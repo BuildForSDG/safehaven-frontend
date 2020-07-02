@@ -11,6 +11,7 @@
   .People {
     width: 30%;
     padding: 2rem;
+    overflow-y: scroll;
 
     @media (max-width: 424.98px) {
       margin-top: 3rem;
@@ -24,7 +25,6 @@
 
     .UserTab {
       text-align: left;
-      height: 6rem;
       width: 95%;
       margin: auto;
       border-bottom: 1px solid #000;
@@ -36,6 +36,10 @@
 
       &:hover {
         cursor: pointer;
+      }
+
+      @media (max-width: 767.99px) {
+        padding: 1rem;
       }
     }
 
@@ -59,6 +63,14 @@
       img {
         height: 10rem;
       }
+
+      @media (max-width: 424.98px) {
+        margin-left: 20%;
+      }
+
+      @media (max-width: 767.99px) {
+        margin-left: 35%;
+      }
     }
 
     @media (max-width: 424.98px) {
@@ -71,6 +83,18 @@
         height: 80vh;
         overflow: auto;
         flex: auto;
+
+        .Loader {
+          margin: 30% 50%;
+
+          @media (max-width: 424.98px) {
+            margin-left: 20%;
+          }
+
+          @media (max-width: 767.99px) {
+            margin-left: 35%;
+          }
+        }
       }
       .Parent {
         padding: 1rem;
@@ -118,6 +142,11 @@
 
         form {
           padding: 0;
+          margin-bottom: 0.5rem;
+
+          .Progress {
+            width: 93%;
+          }
         }
 
         .InputField {
@@ -133,3 +162,4 @@
     }
   }
 }
+

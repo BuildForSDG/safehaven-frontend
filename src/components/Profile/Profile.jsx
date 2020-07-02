@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
@@ -9,7 +10,7 @@ import HealingIcon from '@material-ui/icons/Healing';
 import styles from './profile.scss';
 import EditUser from './EditUser';
 import TabPanel from './TabPanel';
-import { getProfile } from '../../redux/actions/profileAction';
+import { getProfile, loadingProfile } from '../../redux/actions/profileAction';
 import { clearError } from '../../redux/actions/authAction';
 
 /**
@@ -21,6 +22,7 @@ const ProfilePage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const profileLoading = useSelector(({ profile }) => profile.loadingProfile);
   const {
     firstName,
     surName,
@@ -45,6 +47,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     dispatch(clearError());
+    dispatch(loadingProfile());
     dispatch(getProfile());
   }, []);
 
@@ -69,7 +72,8 @@ const ProfilePage = () => {
           email={email}
           dateOfBirth={dateOfBirth}
           nationality={nationality}
-          avatar={image}
+          avatar={avatar}
+          image={image}
           stateOfOrigin={stateOfOrigin}
           address={address}
           handleClose={handleClose}
@@ -91,40 +95,49 @@ const ProfilePage = () => {
             </Button>
           </div>
           <div>
-            <div className={styles.Detail}>
-              <h5>Role</h5>
-              {role}
-            </div>
-            <div className={styles.Detail}>
-              <h5>Phone Number</h5>
-              <i>+234</i> {phone}
-            </div>
-            <div className={styles.Detail}>
-              <h5>Email</h5>
-              <i>{email}</i>
-            </div>
-            {address && (
-              <div className={styles.Detail}>
-                <h5>Address</h5>
-                {address}
+            {profileLoading && (
+              <div className={styles.Loader}>
+                <CircularProgress />
               </div>
             )}
-            {gender && (
-              <div className={styles.Detail}>
-                <h5>Gender</h5>
-                {gender}
-              </div>
-            )}
-            {dateOfBirth && (
-              <div className={styles.Detail}>
-                <h5>DOB</h5>
-                {dateOfBirth}
-              </div>
-            )}
-            {stateOfOrigin && nationality && (
-              <div className={styles.Detail}>
-                <h5>Where From</h5>
-                {stateOfOrigin}, {nationality}
+            {!profileLoading && (
+              <div>
+                <div className={styles.Detail}>
+                  <h5>Role</h5>
+                  {role}
+                </div>
+                <div className={styles.Detail}>
+                  <h5>Phone Number</h5>
+                  <i>+234</i> {phone}
+                </div>
+                <div className={styles.Detail}>
+                  <h5>Email</h5>
+                  <i>{email}</i>
+                </div>
+                {address && (
+                  <div className={styles.Detail}>
+                    <h5>Address</h5>
+                    {address}
+                  </div>
+                )}
+                {gender && (
+                  <div className={styles.Detail}>
+                    <h5>Gender</h5>
+                    {gender}
+                  </div>
+                )}
+                {dateOfBirth && (
+                  <div className={styles.Detail}>
+                    <h5>DOB</h5>
+                    {dateOfBirth}
+                  </div>
+                )}
+                {stateOfOrigin && nationality && (
+                  <div className={styles.Detail}>
+                    <h5>Where From</h5>
+                    {stateOfOrigin}, {nationality}
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { func } from 'prop-types';
-import { getPatients } from '../../redux/actions/chatAction';
+import { getPatients, patientsLoading } from '../../redux/actions/chatAction';
 import styles from './chat.scss';
 
 /**
@@ -9,16 +9,22 @@ import styles from './chat.scss';
  * @param {*} props
  * @returns {HTMLElement} default layout
  */
-const Patients = ({ setOtherUser}) => {
+const Patients = ({ setOtherUser }) => {
+  const patients = useSelector(({ chat }) => chat.patients);
+  const loading = useSelector(({ chat }) => chat.patientsLoading);
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(patientsLoading())
     dispatch(getPatients());
   }, []);
-  const patients = useSelector(({ chat }) => chat.patients);
 
   const content = () => {
-    if (!patients[0]) {
-      return 'no patients';
+    if (loading) {
+      return 'Loading...'
+    }
+
+    if (!loading && !patients[0]) {
+      return 'No patients';
     }
 
     return patients.map((consultant, index) => {
@@ -44,9 +50,8 @@ const Patients = ({ setOtherUser}) => {
   );
 };
 
-
 Patients.propTypes = {
   setOtherUser: func.isRequired
-}
+};
 
 export default Patients;

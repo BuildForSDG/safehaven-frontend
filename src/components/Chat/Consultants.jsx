@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { func } from 'prop-types';
-import { getConsultants } from '../../redux/actions/chatAction';
+import { getConsultants, consultantsLoading } from '../../redux/actions/chatAction';
 import styles from './chat.scss';
 
 /**
@@ -12,15 +12,21 @@ import styles from './chat.scss';
 const Consultants = ({ setOtherUser}) => {
   const dispatch = useDispatch();
   const consultants = useSelector(({ chat }) => chat.consultants);
+  const loading = useSelector(({ chat }) => chat.consultantsLoading);
 
 
   useEffect(() => {
+    dispatch(consultantsLoading())
     dispatch(getConsultants());
   }, []);
 
   const content = () => {
-    if (!consultants[0]) {
-      return 'no consultants';
+    if (loading) {
+      return 'Loading...'
+    }
+
+    if (!loading && !consultants[0]) {
+      return 'No consultants';
     }
 
     return consultants.map((consultant, index) => {

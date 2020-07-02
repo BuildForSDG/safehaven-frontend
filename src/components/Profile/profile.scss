@@ -82,6 +82,11 @@
     @media (max-width: 424.98px) {
       margin-left: 0;
     }
+    
+    .Loader {
+          width: 2%;
+          margin: 3rem auto;
+        }
 
     .Details {
       width: 40%;
@@ -93,6 +98,8 @@
         width: 100%;
         height: fit-content;
         overflow-x: unset;
+
+        
       }
 
       .Info {

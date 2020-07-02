@@ -5,6 +5,7 @@ export const initialState = {
   user: {},
   error: null,
   loading: false,
+  loadingProfile: false,
   editError: false,
   edited: false
 };
@@ -14,6 +15,7 @@ const profileReducer = (state = initialState, action) => {
     case types.EDIT_PROFILE:
       return {
         ...state,
+        user: action.payload,
         loading: false,
         edited: true,
         editError: null,
@@ -35,6 +37,19 @@ const profileReducer = (state = initialState, action) => {
         error: null,
         editError: null,
       };
+
+      case types.LOADING_PROFILE:
+      return {
+        ...state,
+        loadingProfile: true
+      };
+
+      case types.LOADED_PROFILE:
+      return {
+        ...state,
+        loadingProfile: false
+      };
+
     case types.EDIT_PROFILE_ERROR:
       return {
         ...state,

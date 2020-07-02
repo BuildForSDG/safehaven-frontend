@@ -23,6 +23,7 @@ const EditUser = ({
   gender,
   phone,
   email,
+  image,
   dateOfBirth,
   nationality,
   avatar,
@@ -41,12 +42,17 @@ const EditUser = ({
     }
   });
   useEffect(() => {
+    dispatch(clearError());
+    if (!user.email) {
+      history.push('/profile');
+    }
+
     setState({
       firstName,
       surName,
       phone,
       email,
-      avatar,
+      image,
       gender: gender || '',
       dateOfBirth: dateOfBirth || '',
       nationality: nationality || '',
@@ -54,7 +60,7 @@ const EditUser = ({
       address: address || ''
     });
   }, [user]);
-  const image = !state.avatarPreview ? state.avatar : state.avatarPreview;
+  const readyimage = !state.avatarPreview ? state.image : state.avatarPreview;
 
   const error = useSelector(({ profile }) => {
     return profile.editError;
@@ -74,15 +80,25 @@ const EditUser = ({
     dispatch(clearError());
     setState({
       ...state,
-      avatar: e.target.files,
+      avatar: e.target.files[0],
       avatarPreview: URL.createObjectURL(e.target.files[0])
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append('avatar', state.avatar);
+    data.append('firstName', state.firstName);
+    data.append('surName', state.surName);
+    data.append('phone', state.phone);
+    data.append('email', state.email);
+    data.append('gender', state.gender);
+    data.append('dateOfBirth', state.dateOfBirth);
+    data.append('stateOfOrigin', state.stateOfOrigin);
+    data.append('address', state.address);
     dispatch(loading());
-    dispatch(editProfile(state));
+    dispatch(editProfile(data));
   };
 
   return (
@@ -101,7 +117,7 @@ const EditUser = ({
         >
           <h2>Edit your Profile</h2>
           <div className={styles.Image}>
-            <img src={image} alt="placeholder" />
+            <img src={readyimage} alt="placeholder" />
             <Button variant="contained" component="label">
               <span>change Image</span>
               <input
@@ -174,8 +190,7 @@ const EditUser = ({
               value={state.gender}
               onChange={handleInputChange}
               inputProps={{
-                name: 'gender',
-                id: 'age-native-simple'
+                name: 'gender'
               }}
             >
               <option aria-label="none" value="" />
@@ -249,7 +264,8 @@ EditUser.propTypes = {
   email: string,
   dateOfBirth: string,
   nationality: string,
-  avatar: string.isRequired,
+  avatar: string,
+  image: string.isRequired,
   stateOfOrigin: string,
   address: string
 };
@@ -261,7 +277,8 @@ EditUser.defaultProps = {
   dateOfBirth: null,
   nationality: null,
   stateOfOrigin: null,
-  address: null
+  address: null,
+  avatar: null
 };
 
 export default EditUser;

@@ -15,6 +15,11 @@ const getConsultants = () => {
           payload: request.data.data
         }
       );
+      dispatch(
+        {
+          type: actionTypes.CONSULTANTS_LOADED,
+        }
+      );
     } catch (error) {
       dispatch({
         type: actionTypes.GET_CONSULTANTS_ERROR,
@@ -29,8 +34,7 @@ const setOtherUser = (uuid) => ({
   payload: uuid
 });
 
-const setMessages = (messages, callback) => {
-  callback();
+const setMessages = (messages) => {
   return {
     type: actionTypes.MESSAGES,
     payload: messages
@@ -48,6 +52,12 @@ const getPatients = () => {
           payload: request.data.data
         }
       );
+      dispatch(
+        {
+          type: actionTypes.PATIENTS_LOADED,
+        }
+      );
+
     } catch (error) {
       dispatch({
         type: actionTypes.GET_PATIENTS_ERROR,
@@ -63,9 +73,40 @@ const clearError = () => ({
 })
 
 
-const loading = () => ({
-  type: actionTypes.LOADING,
+const loadingMessages = () => ({
+  type: actionTypes.LOADING_MESSAGE,
 })
 
+const messagesLoaded = () => ({
+  type: actionTypes.MESSAGE_LOADED,
+})
 
-export { getConsultants, loading, clearError, getPatients, setOtherUser, setMessages };
+const sendingMessage = () => ({
+  type: actionTypes.LOADING_MESSAGE,
+})
+
+const messageSent = () => ({
+  type: actionTypes.MESSAGE_LOADED,
+})
+
+const patientsLoading = () => ({
+  type: actionTypes.PATIENTS_LOADING,
+})
+
+const consultantsLoading = () => ({
+  type: actionTypes.CONSULTANTS_LOADING,
+})
+
+export {
+  getConsultants,
+  sendingMessage,
+  messageSent,
+  loadingMessages,
+  messagesLoaded,
+  clearError,
+  getPatients,
+  setOtherUser,
+  setMessages,
+  patientsLoading,
+  consultantsLoading
+};

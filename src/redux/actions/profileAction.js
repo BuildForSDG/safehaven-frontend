@@ -11,6 +11,11 @@ const getProfile = () => {
       const request = await get(`/profile/${token}`, );
       dispatch(
         {
+          type: actionTypes.LOADED_PROFILE,
+        }
+      );
+      dispatch(
+        {
           type: actionTypes.GET_PROFILE,
           payload: request.data.data
         }
@@ -32,7 +37,7 @@ const editProfile = (payload) => {
       dispatch(
         {
           type: actionTypes.EDIT_PROFILE,
-          payload: request.data.data
+          payload: request.data.data[0]
         }
       );
     } catch (error) {
@@ -53,5 +58,9 @@ const loading = () => ({
   type: actionTypes.LOADING,
 })
 
+const loadingProfile = () => ({
+  type: actionTypes.LOADING_PROFILE,
+})
 
-export { getProfile, loading, editProfile, clearError };
+
+export { getProfile, loading, editProfile, clearError, loadingProfile };
